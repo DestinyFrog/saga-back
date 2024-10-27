@@ -5,7 +5,7 @@ const Usuario = sequelize.define(
 	'usuario',
 	{
 		pid: {
-			type: DataTypes.UUIDV4
+			type: DataTypes.UUID
 		},
 		nome: {
 			type: DataTypes.STRING
