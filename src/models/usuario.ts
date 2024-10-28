@@ -18,6 +18,15 @@ const Usuario = sequelize.define(
 		},
 		senha: {
 			type: DataTypes.STRING(32)
+		},
+		cpf: {
+			type: DataTypes.STRING(20)
+		},
+		admin: {
+			type: DataTypes.BOOLEAN
+		},
+		foto: {
+			type: DataTypes.BLOB
 		}
 	}
 )
