@@ -138,6 +138,7 @@ router.get("/login-get/:pid", (req, res) => {
 		}
 		else {
 			res.status(200)
+				.cookie("pid", data.get("pid") )
 				.json(data)
 		}
 	})
