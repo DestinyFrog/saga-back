@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import Usuario from '../models/usuario.js'
+import jwt from 'jsonwebtoken'
 
 const router = Router()
 
@@ -48,8 +49,10 @@ router.post("/login", (req, res) => {
 		}
 		else {
 			if ( body.senha === data.get("senha") ) {
+				const token = jwt.sign( { jwt: data.get("pid") }, process.env["SECRET"] as string )
+
 				res.status(200)
-					.cookie("pid", data.get("pid") )
+					.cookie("jwt", token)
 					.json({"mensagem": "usuário logado"})
 			}
 			else {
@@ -92,33 +95,9 @@ router.post("/check", (req, res) => {
 })
 
 router.post("/sair", (req, res) => {
-	res.clearCookie("pid")
-})
-
-router.get("/data", (req, res) => {
-	const pid = req.cookies["pid"]
-
-	if (typeof pid !== "string") {
-		res.status(400)
-			.json({"mensagem": "usuário não logado"})
-		return
-	}
-
-	Usuario.findOne( { where: { pid } } )
-	.then( (data) => {
-		if (data == null) {
-			res.status(404)
-				.json({"erro": "usuário não encontrado no banco de dados"})
-		}
-		else {
-			res.status(200)
-				.json(data)
-		}
-	})
-	.catch(_ => {
-		res.status(500)
-			.json({"erro": "erro na procura de usuarios no banco de dados"})
-	})
+	res
+		.clearCookie("jwt")
+		.json({"mensagem": "saiu com sucesso"})
 })
 
 router.get("/login-get/:pid", (req, res) => {
@@ -137,9 +116,11 @@ router.get("/login-get/:pid", (req, res) => {
 				.json({"erro": "usuário não encontrado no banco de dados"})
 		}
 		else {
+			const token = jwt.sign( { pid }, process.env["SECRET"] as string )
+
 			res.status(200)
-				.cookie("pid", data.get("pid") )
-				.json(data)
+				.cookie("jwt", token)
+				.json( {"mensagem": "logado com sucesso"} )
 		}
 	})
 	.catch(_ => {
