@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "tsc && node dist/index.js"
+    "start": "tsc && node dist/index.js",
+	"test": "jest"
   },
   "author": "dotme",
   "license": "ISC",
