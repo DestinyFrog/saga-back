@@ -27,9 +27,9 @@ router.post("/cadastrar", (req, res) => {
 router.post("/login", (req, res) => {
 	const body = req.body
 
-	if (typeof body.nome !== "string") {
+	if (typeof body.login !== "string") {
 		res.status(400)
-			.json({"erro": "coluna 'nome' indefinida"})
+			.json({"erro": "coluna 'login' indefinida"})
 		return
 	}
 
@@ -40,7 +40,7 @@ router.post("/login", (req, res) => {
 	}
 
 	Usuario.findOne( {where: 
-		{ nome: body.nome }
+		{ login: body.login }
 	} )
 	.then( (data) => {
 		if (data == null) {

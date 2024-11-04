@@ -1,11 +1,15 @@
-import { DataTypes } from "sequelize"
+import { DataTypes, UUIDV4 } from "sequelize"
 import sequelize from "../db/conn.js"
 
 const Usuarios = sequelize.define(
 	'usuario',
 	{
 		pid: {
-			type: DataTypes.UUID
+			type: DataTypes.UUID,
+			defaultValue: UUIDV4
+		},
+		login: {
+			type: DataTypes.STRING(10)
 		},
 		nome: {
 			type: DataTypes.STRING,
@@ -31,10 +35,10 @@ const Usuarios = sequelize.define(
 			allowNull: false,
     		unique: true
 		},
-		admin: {
-			type: DataTypes.BOOLEAN,
+		acesso: {
+			type: DataTypes.ARRAY( DataTypes.INTEGER ),
 			allowNull: false,
-			defaultValue: false
+			defaultValue: [ 1 ]
 		},
 		foto: {
 			type: DataTypes.BLOB

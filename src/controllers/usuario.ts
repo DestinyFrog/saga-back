@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 
 const router = Router()
 
+/*
 router.use( (req, res, next) => {
 	try {
 		console.log("TOKEN:", req.cookies?.jwt || "")
@@ -24,6 +25,7 @@ router.use( (req, res, next) => {
 
 	next()
 } )
+*/
 
 router.get("/info", (req, res) => {
 	const pid = req.cookies["pid"]

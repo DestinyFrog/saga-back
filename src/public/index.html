@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Teste</title>
+</head>
+<body>
+	<form id="login-form">
+		<input type="text" id="input-login"/>
+		<input type="password" id="input-senha"/>
+		<button>Login</button>
+	</form>
+
+	<script>
+		const form_login = document.getElementById("login-form")
+
+		const input_login = document.getElementById("input-login")
+		const input_senha = document.getElementById("input-senha")
+
+		form_login.addEventListener('submit', (ev) => {
+			ev.preventDefault()
+
+			const login = input_login.value
+			const senha = input_senha.value
+
+			fetch("/auth/login", {
+				body: JSON.stringify( {
+					login,
+					senha
+				}),
+				headers: {
+    				"Content-Type": "application/json",
+  				},
+				method: "POST"
+			})
+			.then(req => {
+				console.log(req.status)
+				return req.json()
+			})
+			.then(data => {
+				console.log(data)
+
+				console.log("CHECK")
+				fetch("/auth/check", {
+					headers: {
+						"Content-Type": "application/json",
+					},
+					method: "POST"
+				})
+				.then(res => {
+					console.log(res.status)
+					return res.json()
+				})
+				.then(data => {
+					console.log(data)
+				})
+				.catch(err => {
+					console.error(err)
+				})
+			})
+			.catch(err => {
+				console.error(err)
+			})
+		})
+	</script>
+</body>
+</html>

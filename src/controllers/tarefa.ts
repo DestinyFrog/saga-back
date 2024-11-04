@@ -1,10 +1,10 @@
-import { Router } from "express"
-import Maquinas from "../models/maquina.js"
+import { Router } from "express";
+import Tarefas from "../models/tarefa.js";
 
 const router = Router()
 
 router.get("/", (req, res) => {
-	Maquinas.findAll()
+	Tarefas.findAll()
 	.then(data => {
 		res.status(200)
 			.json(data)
@@ -18,17 +18,18 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
 	const {
-		codigo,
-		nome,
 		descricao,
-		id_responsavel
+		id_maquina,
+		id_equipe,
 	} = req.body
 
-	Maquinas.create({
-		codigo,
-		nome,
+	const id_criador = req.cookies["id"]
+
+	Tarefas.create({
 		descricao,
-		id_responsavel
+		id_maquina,
+		id_equipe,
+		id_criador
 	})
 	.then(data => {
 		res.status(200)
@@ -41,17 +42,17 @@ router.post("/", (req, res) => {
 	})
 })
 
-router.delete("/:id", (req, res) => {
-	const id = parseInt(req.params.id)
+router.delete("/:pid", (req, res) => {
+	const pid = parseInt(req.params.pid)
 
-	Maquinas.destroy({
+	Tarefas.destroy({
 		where: {
-			id
+			pid
 		}
 	})
 	.then(_ => {
 		res.status(200)
-			.json({mensagem: "máquina deletada com sucesso"})
+			.json({mensagem: "tarefa deletado com sucesso"})
 	})
 	.catch(err => {
 		console.error(err)
