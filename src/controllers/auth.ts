@@ -5,26 +5,6 @@ import { checkAuthentication, processJWT } from '../middlewares/auth.js'
 
 const router = Router()
 
-router.post("/cadastrar", (req, res) => {
-	const body = req.body
-
-	if (typeof body.nome !== "string") {
-		res.status(400)
-			.json({"erro": "coluna 'nome' indefinida"})
-		return
-	}
-
-	Usuario.create(body)
-	.then(() => {
-		res.status(200)
-			.json({"mensagem": "usuario inserido com sucesso"})
-	})
-	.catch(_ => {
-		res.status(500)
-			.json({"erro": "erro na inserção de usuarios no banco de dados"})
-	})
-})
-
 router.post("/login", (req, res) => {
 	const body = req.body
 
