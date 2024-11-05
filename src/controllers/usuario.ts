@@ -1,60 +1,55 @@
 
 import { Router } from 'express'
-import Usuario from '../models/usuario.js'
-import jwt from 'jsonwebtoken'
+import { checkAdmin, checkAuthentication, processJWT } from '../middlewares/auth.js'
+import Usuarios from '../models/usuario.js'
 
 const router = Router()
 
-/*
-router.use( (req, res, next) => {
-	try {
-		console.log("TOKEN:", req.cookies?.jwt || "")
-
-		const token = req.cookies?.jwt
-		if (!token)
-			throw new Error("Not Logged")
-
-		console.log("TOKEN:", token)
-
-		var decoded = jwt.verify(token, process.env["SECRET"] as string)
-		req.cookies.pid = decoded
-		console.log("DECODED TOKEN:", decoded)
-	} catch(err) {
-		throw err
+router.get("/info",
+	processJWT,
+	checkAuthentication,
+	(req, res) => {
+		res.status(200)
+			.json( req["data"] )
 	}
+)
 
-	next()
-} )
-*/
-
-router.get("/info", (req, res) => {
-	const pid = req.cookies["pid"]
-
-	if (typeof pid !== "string") {
-		res.status(400)
-			.json({"mensagem": "usuário não logado"})
-		return
+router.post("/",
+	processJWT,
+	checkAuthentication,
+	checkAdmin,
+	(req, res) => {
+		
 	}
+)
 
-	Usuario.findOne( { where: { pid } } )
-	.then( (data) => {
-		if (data == null) {
-			res.status(404)
-				.json({"erro": "usuário não encontrado no banco de dados"})
+router.delete("/:pid",
+	processJWT,
+	checkAuthentication,
+	checkAdmin,
+	(req, res) => {
+		const pid = req.params.pid
+
+		if (!pid) {
+			res.status(400)
+				.json({"mensagem": "id público inválido"})
 		}
-		else {
+
+		Usuarios.destroy({
+			where: {
+				pid
+			}
+		})
+		.then(_ => {
 			res.status(200)
-				.json(data)
-		}
-	})
-	.catch(_ => {
-		res.status(500)
-			.json({"erro": "erro na procura de usuarios no banco de dados"})
-	})
-})
-
-router.delete("/:id", (req, res) => {
-	
-})
+				.json({mensagem: "usuário deletado com sucesso"})
+		})
+		.catch(err => {
+			console.error(err)
+			res.status(500)
+				.json({erro: "erro desconhecido no banco de dados"})
+		})
+	}
+)
 
 export default router

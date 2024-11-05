@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import Usuario from '../models/usuario.js'
 import jwt from 'jsonwebtoken'
+import { checkAuthentication, processJWT } from '../middlewares/auth.js'
 
 const router = Router()
 
@@ -68,65 +69,21 @@ router.post("/login", (req, res) => {
 	})
 })
 
-router.post("/check", (req, res) => {
-	const pid = req.cookies["pid"]
-
-	if (typeof pid !== "string") {
-		res.status(400)
-			.json({"mensagem": "usuário não logado"})
-		return
+router.get("/check",
+	processJWT,
+	checkAuthentication,
+	(req, res) => {
+		res.status(200)
+			.json({"mensagem":"usuário logado"})
 	}
+)
 
-	Usuario.findOne( { where: { pid } } )
-	.then( (data) => {
-		if (data == null) {
-			res.status(404)
-				.json({"erro": "usuário não encontrado no banco de dados"})
-		}
-		else {
-			res.status(200)
-				.json({"mensagem": "usuário logado"})
-		}
-	})
-	.catch(_ => {
-		res.status(500)
-			.json({"erro": "erro na procura de usuarios no banco de dados"})
-	})
-})
-
-router.post("/sair", (req, res) => {
+router.post("/sair",
+	processJWT,
+	(req, res) => {
 	res
 		.clearCookie("jwt")
 		.json({"mensagem": "saiu com sucesso"})
-})
-
-router.get("/login-get/:pid", (req, res) => {
-	const pid = req.params["pid"]
-
-	if (typeof pid !== "string") {
-		res.status(400)
-			.json({"mensagem": "usuário não logado"})
-		return
-	}
-
-	Usuario.findOne( { where: { pid } } )
-	.then( (data) => {
-		if (data == null) {
-			res.status(404)
-				.json({"erro": "usuário não encontrado no banco de dados"})
-		}
-		else {
-			const token = jwt.sign( { pid }, process.env["SECRET"] as string )
-
-			res.status(200)
-				.cookie("jwt", token)
-				.json( {"mensagem": "logado com sucesso"} )
-		}
-	})
-	.catch(_ => {
-		res.status(500)
-			.json({"erro": "erro na procura de usuarios no banco de dados"})
-	})
 })
 
 export default router
