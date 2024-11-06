@@ -36,9 +36,9 @@ const Usuarios = sequelize.define(
     		unique: true
 		},
 		acesso: {
-			type: DataTypes.ARRAY( DataTypes.INTEGER ),
+			type: DataTypes.STRING(25),
 			allowNull: false,
-			defaultValue: [ 1 ]
+			defaultValue: "peao"
 		},
 		foto: {
 			type: DataTypes.BLOB

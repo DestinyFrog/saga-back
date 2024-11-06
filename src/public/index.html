@@ -15,6 +15,9 @@
 	<button id="but-check">Check</button>
 	<button id="but-sair">Sair</button>
 
+	<p id="log-status"></p>
+	<p id="log"></p>
+
 	<script>
 		const form_login = document.getElementById("login-form")
 
@@ -24,13 +27,18 @@
 		const but_check = document.getElementById("but-check")
 		const but_sair = document.getElementById("but-sair")
 
+		const p_log_status = document.getElementById("log-status")
+		const p_log = document.getElementById("log")
+
+		const link = "http://localhost:3000"
+
 		form_login.addEventListener('submit', (ev) => {
 			ev.preventDefault()
 
 			const login = input_login.value
 			const senha = input_senha.value
 
-			fetch("/auth/login", {
+			fetch(link+"/auth/login", {
 				body: JSON.stringify( {
 					login,
 					senha
@@ -41,42 +49,43 @@
 				method: "POST"
 			})
 			.then(req => {
-				console.log(req.status)
+				p_log_status.textContent = req.status
 				return req.json()
 			})
 			.then(data => {
 				console.log(data)
+				p_log.textContent = data.mensagem
 			})
 			.catch(err => {
-				console.error(err)
+				p_log.textContent = data.mensagem
 			})
 		})
 
 		but_check.addEventListener('click', (ev) => {
-			fetch("/auth/check", {method: "GET"})
-			.then(res => {
-				console.log(res.status)
-				return res.json()
+			fetch(link+"/auth/check")
+			.then(req => {
+				p_log_status.textContent = req.status
+				return req.json()
 			})
 			.then(data => {
-				console.log(data)
+				p_log.textContent = data.mensagem
 			})
 			.catch(err => {
-				console.error(err)
+				p_log.textContent = data.mensagem
 			})
 		})
 
 		but_sair.addEventListener('click', (ev) => {
-			fetch("/auth/sair", {method: "POST"})
-			.then(res => {
-				console.log(res.status)
-				return res.json()
+			fetch(link+"/auth/sair", {method: "POST"})
+			.then(req => {
+				p_log_status.textContent = req.status
+				return req.json()
 			})
 			.then(data => {
-				console.log(data)
+				p_log.textContent = data.mensagem
 			})
 			.catch(err => {
-				console.error(err)
+				p_log.textContent = data.mensagem
 			})
 		})
 </script>

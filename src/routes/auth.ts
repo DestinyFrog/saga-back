@@ -10,13 +10,13 @@ router.post("/login", (req, res) => {
 
 	if (typeof body.login !== "string") {
 		res.status(400)
-			.json({"erro": "coluna 'login' indefinida"})
+			.json({"mensagem": "coluna 'login' indefinida"})
 		return
 	}
 
 	if (typeof body.senha !== "string") {
 		res.status(400)
-			.json({"erro": "coluna 'senha' indefinida"})
+			.json({"mensagem": "coluna 'senha' indefinida"})
 		return
 	}
 
@@ -26,7 +26,7 @@ router.post("/login", (req, res) => {
 	.then( (data) => {
 		if (data == null) {
 			res.status(404)
-				.json({"erro": "usuário não encontrado no banco de dados"})
+				.json({"mensagem": "usuário não encontrado no banco de dados"})
 		}
 		else {
 			if ( body.senha === data.get("senha") ) {
@@ -38,30 +38,33 @@ router.post("/login", (req, res) => {
 			}
 			else {
 				res.status(403)
-					.json({"erro": "senha incorreta"})
+					.json({"mensagem": "senha incorreta"})
 			}
 		}
 
 	})
-	.catch(_ => {
+	.catch(err => {
+		console.error(err)
 		res.status(500)
-			.json({"erro": "erro na procura de usuarios no banco de dados"})
+			.json({"mensagem": "erro na procura de usuarios no banco de dados"})
 	})
 })
 
 router.get("/check",
 	processJWT,
 	checkAuthentication,
-	(req, res) => {
-		res.status(200)
-			.json({"mensagem":"usuário logado"})
+	(_, res) => {
+		res
+			.status(200)
+			.json({"mensagem":"usuário está logado"})
 	}
 )
 
 router.post("/sair",
 	processJWT,
-	(req, res) => {
+	(_, res) => {
 	res
+		.status(200)
 		.clearCookie("jwt")
 		.json({"mensagem": "saiu com sucesso"})
 })
