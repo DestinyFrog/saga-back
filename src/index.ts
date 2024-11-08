@@ -18,7 +18,9 @@ const app = Express()
 
 app.use( cookieParser() )
 app.use( Express.json() )
-app.use( cors() )
+app.use( cors({
+	origin: "*"
+}) )
 
 app.use( "/app", Express.static(__dirname + "/public") )
 
