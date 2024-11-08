@@ -1,5 +1,6 @@
 import { Router } from "express"
 import Maquinas from "../models/maquina.js"
+import { processJWT, checkAuthentication, checkTecnico } from "../middlewares/auth.js"
 
 const router = Router()
 
@@ -16,13 +17,18 @@ router.get("/", (req, res) => {
 	})
 })
 
-router.post("/", (req, res) => {
+router.post("/",
+	processJWT,
+	checkAuthentication,
+	checkTecnico,
+	(req, res) => {
 	const {
 		codigo,
 		nome,
-		descricao,
-		id_responsavel
+		descricao
 	} = req.body
+
+	const id_responsavel = req["data"].id
 
 	Maquinas.create({
 		codigo,
