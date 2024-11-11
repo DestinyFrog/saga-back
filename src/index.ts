@@ -1,6 +1,5 @@
 import Express from 'express'
 import dotenv from 'dotenv'
-import cors from 'cors'
 import sequelize from './db/conn.js'
 import cookieParser from 'cookie-parser'
 import AuthRouter from './routes/auth.js'
@@ -19,7 +18,14 @@ const app = Express()
 
 app.use( cookieParser() )
 app.use( Express.json() )
-app.use( cors() )
+
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+	res.header("Access-Control-Allow-credentials", 'true');
+	res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
+	next();
+})
 
 app.use( "/app", Express.static(__dirname + "/public") )
 
