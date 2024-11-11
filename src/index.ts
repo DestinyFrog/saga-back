@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import AuthRouter from './routes/auth.js'
 import UsuarioRouter from './routes/usuario.js'
 import MaquinaRouter from './routes/maquinas.js'
+import EquipeRouter from './routes/equipe.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -18,9 +19,7 @@ const app = Express()
 
 app.use( cookieParser() )
 app.use( Express.json() )
-app.use( cors({
-	origin: "*"
-}) )
+app.use( cors() )
 
 app.use( "/app", Express.static(__dirname + "/public") )
 
@@ -28,6 +27,7 @@ app.use( "/app", Express.static(__dirname + "/public") )
 app.use("/auth", AuthRouter)
 app.use("/usuario", UsuarioRouter)
 app.use("/maquina", MaquinaRouter)
+app.use("/equipe", EquipeRouter)
 
 app.get("/", async (_, res) => {
 	res.end("Hello, World!!")
