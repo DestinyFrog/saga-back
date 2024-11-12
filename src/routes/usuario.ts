@@ -2,6 +2,7 @@
 import { Router } from 'express'
 import { checkAdmin, checkAuthentication, processJWT } from '../middlewares/auth.js'
 import Usuarios from '../models/usuario.js'
+import Equipes from '../models/equipe.js'
 
 const router = Router()
 
@@ -9,8 +10,27 @@ router.get("/info",
 	processJWT,
 	checkAuthentication,
 	(req, res) => {
-		res.status(200)
-			.json( req["data"] )
+		const id = req["data"].id
+		
+		Usuarios.findAll({
+			where: {
+				id
+			},
+			include: [
+				{
+					model: Equipes
+				}
+			]
+		})
+		.then(data => {
+			res.status(200)
+				.json(data)
+		})
+		.catch(err => {
+			console.error(err)
+			res.status(500)
+				.json({erro: "erro desconhecido no banco de dados"})
+		})
 	}
 )
 
