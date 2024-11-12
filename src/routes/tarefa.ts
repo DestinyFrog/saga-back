@@ -10,8 +10,6 @@ router.get("/",
 	processJWT,
 	checkAuthentication,
 	(req, res) => {
-		const id = req["data"].id
-		
 		Tarefas.findAll({
 			include: [
 				{
@@ -26,7 +24,13 @@ router.get("/",
 		})
 		.then(data => {
 			res.status(200)
-				.json(data)
+				.json(data.filter(d => {
+					let save = true
+					d["equipe"]["usuarios"].forEach(e => {
+						
+					})
+					return save
+				}))
 		})
 		.catch(err => {
 			console.error(err)

@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express'
 
 export function processJWT(req:Request, res:Response, next:NextFunction) {
 	const token = req.cookies?.jwt
+	console.log("TOKEN: ", token)
 	if (!token) {
 		res.status(400)
 			.json({"mensagem": "erro ao encontrar JWT"})

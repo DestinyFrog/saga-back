@@ -31,7 +31,6 @@ router.post("/login", (req, res) => {
 		else {
 			if ( body.senha === data.get("senha") ) {
 				const token = jwt.sign( { jwt: data.get("pid") }, process.env["SECRET"] as string )
-				console.log("TOKEN",token)
 
 				if (data["acesso"] == "admin") {
 					res.status(403)
