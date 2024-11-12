@@ -181,6 +181,18 @@ input:focus {
     transition: 0.3s;
   }
 
+.mensagem{
+    color: #ad9660;
+    font-family: 'lato';
+    justify-content: center;
+    margin-left: 150px;
+}
+.mensage{
+    color: #ad9660;
+    font-family: 'lato';
+    justify-content: center;
+    margin-left: 150px;
+}
 
 /* geo, não sei o que é mais bonito: você ou esse código css */
 /* parabéns, continue assim */
@@ -332,7 +344,7 @@ input:focus {
 }
 
 
-/*ANIMAÇÃO CSs*/
+/*ANIMAÇÃO CSS*/
 
 @keyframes slidein {
 
@@ -435,6 +447,14 @@ input:focus {
         display: flex;
         justify-content: center;
         margin-left: 450px;
+    }
+    .mensagem{
+        justify-content: center;
+        margin-left: 130px;
+    }
+    .mensage{
+        justify-content: center;
+        margin-left: 460px;
     }
     
     /* ANIMAÇÃO MOBILE CSS*/
@@ -568,7 +588,14 @@ input:focus {
         justify-content: center;
         margin-left: 300px;
     }
-    
+    .mensagem{
+        justify-content: center;
+        margin-left: 70px;
+    }   
+    .mensage{
+        justify-content: center;
+        margin-left: 180px;
+    } 
 }
 
 @media screen and (max-width: 430px) {
@@ -586,17 +613,23 @@ input:focus {
     }
 
     .second-content::before{
-        height: 50vh;
+        height: 50vh; 
         width: 50vh;
     }
+  
     #signup {
         display: flex;
         justify-content: center;
         margin-left: 140px;
     }
+    .mensagem{
+        justify-content: center;
+        margin-left: 65px;
+    }   
+    .mensage{
+        justify-content: center;
+        margin-left: 100px;
+    }
 }
 
-#signup {
-	justify-self: center;
-	text-align: center;
-}
+
