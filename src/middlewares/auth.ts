@@ -3,7 +3,7 @@ import Usuarios from '../models/usuario.js'
 import { Request, Response, NextFunction } from 'express'
 
 export function processJWT(req:Request, res:Response, next:NextFunction) {
-	const token = req.cookies?.jwt
+	const token = req.body?.jwt
 	if (!token) {
 		res.status(400)
 			.json({"mensagem": "erro ao encontrar JWT"})

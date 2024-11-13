@@ -31,15 +31,13 @@ router.post("/login", (req, res) => {
 		else {
 			if ( body.senha === data.get("senha") ) {
 				const token = jwt.sign( { jwt: data.get("pid") }, process.env["SECRET"] as string )
-				console.log("TOKEN",token)
 
 				if (data["acesso"] == "admin") {
 					res.status(403)
 						.json({"mensagem": "usuário não é um funcionário ou técnico"})
 				} else {
 					res.status(200)
-						.cookie("jwt", token)
-						.json({"mensagem": "usuário logado"})
+						.json({"jwt": token})
 				}
 			} else {
 				res.status(403)
@@ -84,8 +82,7 @@ router.post("/login-admin", (req, res) => {
 
 				if (data["acesso"]  == "admin")
 					res.status(200)
-						.cookie("jwt", token)
-						.json({"mensagem": "usuário logado"})
+						.json({"jwt": token})
 				else
 					res.status(403)
 						.json({"mensagem": "usuário não tem permissão de adminsitrador"})

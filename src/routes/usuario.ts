@@ -5,7 +5,7 @@ import Usuarios from '../models/usuario.js'
 
 const router = Router()
 
-router.get("/info",
+router.post("/info",
 	processJWT,
 	checkAuthentication,
 	(req, res) => {
