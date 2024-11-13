@@ -1,5 +1,7 @@
 import { DataTypes, UUIDV4 } from "sequelize"
 import sequelize from "../db/conn.js"
+import Equipes from "./equipe.js"
+import Usuarios from "./usuario.js"
 
 const Tarefas = sequelize.define(
 	'tarefa',
@@ -19,19 +21,13 @@ const Tarefas = sequelize.define(
 		finalizado_em: {
 			type: DataTypes.DATE,
 			defaultValue: null
-		},
-		id_criador: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		id_equipe: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		id_maquina: {
-			type: DataTypes.INTEGER
 		}
 	}
 )
+
+Tarefas.belongsTo(Equipes)
+
+Tarefas.hasOne(Usuarios, {foreignKey: "id_criador"})
+Usuarios.hasMany(Tarefas)
 
 export default Tarefas

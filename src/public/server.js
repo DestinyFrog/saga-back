@@ -29,7 +29,7 @@ form_funcionario.addEventListener('submit', (ev) => {
 	res.json().then(data => {
 		console.log(res.status, data.mensagem)
 		if (res.status == 200) {
-			location.href = "/app/homespace"
+			location.href = "/app/home"
 		} else {
 			log.textContent = data.mensagem
 		}

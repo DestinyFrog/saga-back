@@ -7,6 +7,7 @@ import AuthRouter from './routes/auth.js'
 import UsuarioRouter from './routes/usuario.js'
 import MaquinaRouter from './routes/maquinas.js'
 import EquipeRouter from './routes/equipe.js'
+import TarefaRouter from './routes/tarefa.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -28,6 +29,7 @@ app.use("/auth", AuthRouter)
 app.use("/usuario", UsuarioRouter)
 app.use("/maquina", MaquinaRouter)
 app.use("/equipe", EquipeRouter)
+app.use("/tarefa", TarefaRouter)
 
 app.get("/", async (_, res) => {
 	res.end("Hello, World!!")
