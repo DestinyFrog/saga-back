@@ -22,8 +22,6 @@ app.use( cookieParser() )
 app.use( Express.json() )
 app.use( cors() )
 
-app.use( "/app", Express.static(__dirname + "/public") )
-
 // Controllers
 app.use("/auth", AuthRouter)
 app.use("/usuario", UsuarioRouter)
