@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
-import Usuarios from '../models/usuario.js'
 import { Request, Response, NextFunction } from 'express'
+import client from '../db/conn'
 
 export function processJWT(req:Request, res:Response, next:NextFunction) {
 	const token = req.body?.jwt
@@ -16,15 +16,17 @@ export function processJWT(req:Request, res:Response, next:NextFunction) {
 }
 
 export function checkAuthentication(req:Request, res:Response, next:NextFunction) {
-	const token = req["jwt"]
-	if (!token) {
+	const pid = req["jwt"]
+	if (!pid) {
 		res.status(400)
 			.json({"mensagem": "erro ao encontrar JWT"})
 		return
 	}
 
-	Usuarios.findOne( { where: { pid: token } } )
-	.then( (data) => {
+	client.usuario.findFirst( {
+		where: { pid }
+	} )
+	.then(data => {
 		if (data == null) {
 			res.status(404)
 				.json({"mensagem": "usuário não encontrado no banco de dados"})
@@ -37,7 +39,7 @@ export function checkAuthentication(req:Request, res:Response, next:NextFunction
 	.catch(err => {
 		console.error(err)
 		res.status(500)
-			.json({d: err,"mensagem": "erro na procura de usuarios no banco de dados"})
+			.json({"mensagem": "erro na procura de usuarios no banco de dados"})
 	})
 }
 
@@ -51,7 +53,7 @@ export function checkAdmin(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != "admin") {
+	if (data.acesso != "ADMIN") {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é administrador"})
@@ -71,7 +73,7 @@ export function checkTecnico(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != "tecnico") {
+	if (data.acesso != "TECNICO") {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é técnico"})
@@ -91,7 +93,7 @@ export function checkPeao(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != "peao") {
+	if (data.acesso != "PEAO") {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é peão"})

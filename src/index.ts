@@ -1,13 +1,9 @@
 import Express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import sequelize from './db/conn.js'
 import cookieParser from 'cookie-parser'
 import AuthRouter from './routes/auth.js'
 import UsuarioRouter from './routes/usuario.js'
-import MaquinaRouter from './routes/maquinas.js'
-import EquipeRouter from './routes/equipe.js'
-import TarefaRouter from './routes/tarefa.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -22,21 +18,17 @@ app.use( cookieParser() )
 app.use( Express.json() )
 app.use( cors() )
 
-// Controllers
-app.use("/auth", AuthRouter)
-app.use("/usuario", UsuarioRouter)
-app.use("/maquina", MaquinaRouter)
-app.use("/equipe", EquipeRouter)
-app.use("/tarefa", TarefaRouter)
+app.use("/", Express.static(__dirname+"/public"))
 
-app.get("/", async (_, res) => {
+// Controllers
+app.use("/api/v1/auth", AuthRouter)
+app.use("/api/v1/usuario", UsuarioRouter)
+
+app.get("/api/v1", (_, res) => {
 	res.end("Hello, World!!")
 })
 
 const PORT = process.env["PORT"]
 
-sequelize.sync()
-.then(() => {
-	app.listen(PORT, () =>
-		console.log(`API Server listening at :${PORT}`) )
-})
+app.listen(PORT, () =>
+	console.log(`API Server listening at :${PORT}`) )
