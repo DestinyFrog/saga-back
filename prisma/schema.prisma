@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  pid       String   @default(uuid()) @db.VarChar(36)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  login     String   @db.VarChar(255)
+  nome      String
+  email     String
+  telefone  String   @db.VarChar(25)
+  senha     String   @db.VarChar(255)
+  cpf       String   @db.VarChar(25)
+  acesso    Acesso
+
+  MaquinasCriadas Maquina[]
+  TarefasCriadas  Tarefa[]
+  Equipes         Equipe[]
+  SubTarefa       SubTarefa[]
+}
+
+enum Acesso {
+  TECNICO
+  ADMIN
+  PEAO
+}
+
+model Maquina {
+  id          Int      @id @default(autoincrement())
+  pid         String   @default(uuid()) @db.VarChar(36)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  codigo      String
+  nome        String
+  descricao   String
+  responsavel Usuario  @relation(references: [id], fields: [usuarioId])
+  usuarioId   Int
+  Tarefa      Tarefa[]
+}
+
+model Submaquina {
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  SubTarefa SubTarefa[]
+}
+
+model Equipe {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  nome      String?
+  usuarios  Usuario[]
+}
+
+enum Estado {
+  PENDENTE
+  EM_ANDAMENTO
+  CONCLUIDO
+}
+
+enum Tipo {
+  PREDITIVA
+  PREVENTIVA
+  CORRETIVA
+}
+
+model Tarefa {
+  id           Int       @id @default(autoincrement())
+  pid          String    @default(uuid()) @db.VarChar(36) @unique
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  estado       Estado    @default(PENDENTE)
+  tipo         Tipo      @default(PREDITIVA)
+  finalizadoEm DateTime?
+  criador      Usuario   @relation(fields: [usuarioId], references: [id])
+  usuarioId    Int
+  maquina      Maquina   @relation(fields: [maquinaId], references: [id])
+  maquinaId    Int
+}
+
+model SubTarefa {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  concluido    Boolean
+  subMaquina   Submaquina @relation(fields: [submaquinaId], references: [id])
+  usuario      Usuario?   @relation(fields: [usuarioId], references: [id])
+  submaquinaId Int
+  usuarioId    Int?
+}
