@@ -5,26 +5,27 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Usuario {
   id        Int      @id @default(autoincrement())
-  pid       String   @default(uuid()) @db.VarChar(36)
+  pid       String   @unique @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  login     String   @db.VarChar(255)
+  login     String
   nome      String
   email     String
-  telefone  String   @db.VarChar(25)
-  senha     String   @db.VarChar(255)
-  cpf       String   @db.VarChar(25)
-  acesso    Acesso
+  telefone  String
+  senha     String
+  cpf       String
+  acesso    String   @default("PEAO")
 
   MaquinasCriadas Maquina[]
   TarefasCriadas  Tarefa[]
@@ -32,73 +33,72 @@ model Usuario {
   SubTarefa       SubTarefa[]
 }
 
-enum Acesso {
-  TECNICO
-  ADMIN
-  PEAO
-}
-
 model Maquina {
-  id          Int      @id @default(autoincrement())
-  pid         String   @default(uuid()) @db.VarChar(36)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  codigo      String
-  nome        String
-  descricao   String
-  responsavel Usuario  @relation(references: [id], fields: [usuarioId])
-  usuarioId   Int
-  Tarefa      Tarefa[]
+  id            Int          @id @default(autoincrement())
+  pid           String       @unique @default(uuid())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  codigo        String
+  nome          String
+  descricao     String
+  responsavel   Usuario      @relation(references: [id], fields: [responsavelId])
+  responsavelId Int
+  Tarefa        Tarefa[]
+  Submaquinas   Submaquina[]
 }
 
 model Submaquina {
   id        Int         @id @default(autoincrement())
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+  nome      String
+  descricao String
+  estado    Int         @default(10)
   SubTarefa SubTarefa[]
+  Maquina   Maquina     @relation(fields: [maquinaId], references: [id])
+  maquinaId Int
 }
 
 model Equipe {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  fixa      Boolean   @default(false)
   nome      String?
   usuarios  Usuario[]
-}
-
-enum Estado {
-  PENDENTE
-  EM_ANDAMENTO
-  CONCLUIDO
-}
-
-enum Tipo {
-  PREDITIVA
-  PREVENTIVA
-  CORRETIVA
+  tarefas   Tarefa[]
 }
 
 model Tarefa {
-  id           Int       @id @default(autoincrement())
-  pid          String    @default(uuid()) @db.VarChar(36) @unique
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  estado       Estado    @default(PENDENTE)
-  tipo         Tipo      @default(PREDITIVA)
+  id           Int         @id @default(autoincrement())
+  pid          String      @unique @default(uuid())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  titulo       String
+  descricao    String
+  estado       String      @default("PENDENTE")
+  tipo         String      @default("PREDITIVA")
   finalizadoEm DateTime?
-  criador      Usuario   @relation(fields: [usuarioId], references: [id])
-  usuarioId    Int
-  maquina      Maquina   @relation(fields: [maquinaId], references: [id])
+  criador      Usuario     @relation(fields: [criadorId], references: [id])
+  criadorId    Int
+  maquina      Maquina     @relation(fields: [maquinaId], references: [id])
   maquinaId    Int
+  Equipe       Equipe?     @relation(fields: [equipeId], references: [id])
+  equipeId     Int?
+  SubTarefa    SubTarefa[]
 }
 
 model SubTarefa {
   id           Int        @id @default(autoincrement())
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-  concluido    Boolean
+  titulo       String
+  descricao    String
+  concluido    Boolean    @default(false)
   subMaquina   Submaquina @relation(fields: [submaquinaId], references: [id])
-  usuario      Usuario?   @relation(fields: [usuarioId], references: [id])
+  criador      Usuario    @relation(fields: [criadorId], references: [id])
+  tarefa       Tarefa     @relation(fields: [tarefaId], references: [id])
   submaquinaId Int
-  usuarioId    Int?
+  criadorId    Int
+  tarefaId     Int
 }
