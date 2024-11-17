@@ -31,7 +31,7 @@ form_funcionario.addEventListener('submit', (ev) => {
 			console.log(res.data)
 			const jwt = data.jwt
 			localStorage.setItem("jwt", jwt)
-			location.href = "/home"
+			location.href = "/tela-principal"
 		} else {
 			log.textContent = data.mensagem
 		}
