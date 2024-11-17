@@ -4,6 +4,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import AuthRouter from './routes/auth.js'
 import UsuarioRouter from './routes/usuario.js'
+import MaquinaRouter from './routes/maquinas.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -23,6 +24,7 @@ app.use("/", Express.static(__dirname+"/public"))
 // Controllers
 app.use("/api/v1/auth", AuthRouter)
 app.use("/api/v1/usuario", UsuarioRouter)
+app.use("/api/v1/maquina", MaquinaRouter)
 
 app.get("/api/v1", (_, res) => {
 	res.end("Hello, World!!")

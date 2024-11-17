@@ -1,11 +1,25 @@
 import { Router } from "express"
-import Maquinas from "../models/maquina.js"
 import { processJWT, checkAuthentication, checkTecnico } from "../middlewares/auth.js"
+import client from "../db/conn.js"
 
 const router = Router()
 
-router.get("/", (req, res) => {
-	Maquinas.findAll()
+router.get("/",
+	processJWT,
+	checkAuthentication,
+	checkTecnico,
+	(req, res) => {
+	client.maquina.findMany({
+		include: {
+			responsavel: true,
+			Submaquinas: {
+				include: {
+					SubTarefa: true
+				}
+			},
+			Tarefa: true
+		}
+	})
 	.then(data => {
 		res.status(200)
 			.json(data)
@@ -22,19 +36,15 @@ router.post("/",
 	checkAuthentication,
 	checkTecnico,
 	(req, res) => {
-	const {
-		codigo,
-		nome,
-		descricao
-	} = req.body
+	const id_responsavel = req["data"].id as number
 
-	const id_responsavel = req["data"].id
-
-	Maquinas.create({
-		codigo,
-		nome,
-		descricao,
-		id_responsavel
+	client.maquina.create({
+		data: {
+			codigo: req.body["codigo"] as string,
+			descricao: req.body["descricao"] as string,
+			nome: req.body["nome"] as string,
+			responsavelId: id_responsavel
+		}
 	})
 	.then(data => {
 		res.status(200)
@@ -47,12 +57,44 @@ router.post("/",
 	})
 })
 
-router.delete("/:id", (req, res) => {
-	const id = parseInt(req.params.id)
+router.put("/:pid",
+	processJWT,
+	checkAuthentication,
+	checkTecnico,
+	(req, res) => {
+	const pid = req.params.pid
 
-	Maquinas.destroy({
+	client.maquina.update({
+		data: {
+			codigo: req.body["codigo"] as string,
+			descricao: req.body["descricao"] as string,
+			nome: req.body["nome"] as string
+		},
 		where: {
-			id
+			pid
+		}
+	})
+	.then(data => {
+		res.status(200)
+			.json(data)
+	})
+	.catch(err => {
+		console.error(err)
+		res.status(500)
+			.json({erro: "erro desconhecido no banco de dados"})
+	})
+})
+
+router.delete("/:pid",
+	processJWT,
+	checkAuthentication,
+	checkTecnico,
+	(req, res) => {
+	const pid = req.params.pid
+
+	client.maquina.delete({
+		where: {
+			pid
 		}
 	})
 	.then(_ => {

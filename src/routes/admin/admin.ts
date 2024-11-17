@@ -1,13 +1,18 @@
-import { Router } from 'express'
+import { Router } from "express"
+import { checkAdmin, checkAuthentication, processJWT } from "../../middlewares/auth"
+import usuarioAdminRouter from './usuario'
+import client from "../../db/conn"
 import jwt from 'jsonwebtoken'
-import { checkAuthentication, processJWT } from '../middlewares/auth.js'
-import client from '../db/conn.js'
 
 const router = Router()
 
-router.post("/login", (req, res) => {
-	const body = req.body
+router.use(processJWT)
+router.use(checkAuthentication)
+router.use(checkAdmin)
 
+router.use("/usuario", usuarioAdminRouter)
+
+router.post("/login", ({body}, res) => {
 	if (typeof body.login !== "string") {
 		res.status(400)
 			.json({"mensagem": "coluna 'login' indefinida"})
@@ -26,12 +31,11 @@ router.post("/login", (req, res) => {
 			if ( body.senha as string === data.senha ) {
 				const token = jwt.sign( { jwt: data.pid }, process.env["SECRET"] as string )
 
-				if (data.acesso == "ADMIN") {
+				if (data.acesso as string !== "ADMIN") {
 					res.status(403)
-						.json({"mensagem": "usuário não é um funcionário ou técnico"})
+						.json({"mensagem": "usuário não é administrador"})
 				} else {
 					res.status(200)
-						.cookie("jwt", token)
 						.json({"jwt": token})
 				}
 			} else {
@@ -46,25 +50,6 @@ router.post("/login", (req, res) => {
 		res.status(500)
 			.json({"mensagem": "erro na procura de usuarios no banco de dados"})
 	})
-})
-
-router.get("/check",
-	processJWT,
-	checkAuthentication,
-	(_, res) => {
-		res
-			.status(200)
-			.json({"mensagem":"usuário está logado"})
-	}
-)
-
-router.post("/sair",
-	processJWT,
-	(_, res) => {
-	res
-		.status(200)
-		.clearCookie("jwt")
-		.json({"mensagem": "saiu com sucesso"})
 })
 
 export default router

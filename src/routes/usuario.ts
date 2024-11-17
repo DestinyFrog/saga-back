@@ -1,11 +1,10 @@
-
 import { Router } from 'express'
-import { checkAdmin, checkAuthentication, processJWT } from '../middlewares/auth.js'
+import { checkAuthentication, processJWT } from '../middlewares/auth.js'
 import client from '../db/conn.js'
 
 const router = Router()
 
-router.post("/info",
+router.get("/",
 	processJWT,
 	checkAuthentication,
 	(req, res) => {
@@ -20,6 +19,33 @@ router.post("/info",
 				MaquinasCriadas: true,
 				SubTarefa: true,
 				TarefasCriadas: true
+			}
+		})
+		.then(data => {
+			res.status(200)
+				.json(data)
+		})
+		.catch(err => {
+			console.error(err)
+			res.status(500)
+				.json({erro: "erro desconhecido no banco de dados"})
+		})
+	}
+)
+
+router.get("/tarefas",
+	processJWT,
+	checkAuthentication,
+	(req, res) => {
+		const id = req["data"].id
+
+		client.tarefa.findMany({
+			include: {
+				Equipe: {
+					include: {
+						usuarios: true	
+					}
+				}
 			}
 		})
 		.then(data => {

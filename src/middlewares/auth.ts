@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import client from '../db/conn'
+import { Acesso } from "../types.d.js"
 
 export function processJWT(req:Request, res:Response, next:NextFunction) {
-	const token = req.body?.jwt
+	const token = req.cookies?.jwt
 	if (!token) {
 		res.status(400)
 			.json({"mensagem": "erro ao encontrar JWT"})
@@ -53,7 +54,7 @@ export function checkAdmin(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != "ADMIN") {
+	if (data.acesso != Acesso.ADMIN) {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é administrador"})
@@ -73,7 +74,7 @@ export function checkTecnico(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != "TECNICO") {
+	if (data.acesso != Acesso.TECNICO) {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é técnico"})
@@ -93,7 +94,7 @@ export function checkPeao(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != "PEAO") {
+	if (data.acesso != Acesso.PEAO) {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é peão"})
