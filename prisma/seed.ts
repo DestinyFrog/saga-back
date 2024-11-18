@@ -6,13 +6,14 @@ import { config } from 'dotenv'
 (async () => {
 	config()
 
+	/*
 	const libsql = createClient({
 		url: `${process.env.TURSO_DATABASE_URL}`,
 		authToken: `${process.env.TURSO_AUTH_TOKEN}`,
 	})
-	
-	const adapter = new PrismaLibSQL(libsql)
-	const client = new PrismaClient({ adapter })
+	*/
+	// const adapter = new PrismaLibSQL(libsql)
+	const client = new PrismaClient()
 
 	const usuario_peao = await client.usuario.create({
 		data:

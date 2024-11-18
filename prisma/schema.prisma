@@ -5,8 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -78,6 +77,7 @@ model Tarefa {
   descricao    String
   estado       String      @default("PENDENTE")
   tipo         String      @default("PREDITIVA")
+  criticidade  Int         @default(0)
   finalizadoEm DateTime?
   criador      Usuario     @relation(fields: [criadorId], references: [id])
   criadorId    Int
@@ -92,6 +92,7 @@ model SubTarefa {
   id           Int        @id @default(autoincrement())
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
+  criticidade  Int        @default(0)
   titulo       String
   descricao    String
   concluido    Boolean    @default(false)
