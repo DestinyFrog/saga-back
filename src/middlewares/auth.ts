@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
-import client from '../db/conn'
+import client from '../db/conn.js'
 import { Acesso } from "../types.d.js"
 
 export function processJWT(req:Request, res:Response, next:NextFunction) {
