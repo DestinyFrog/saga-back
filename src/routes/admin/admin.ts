@@ -1,7 +1,7 @@
 import { Router } from "express"
-import { checkAdmin, checkAuthentication, processJWT } from "../../middlewares/auth"
-import usuarioAdminRouter from './usuario'
-import client from "../../db/conn"
+import { checkAdmin, checkAuthentication, processJWT } from "../../middlewares/auth.js"
+import usuarioAdminRouter from './usuario.js'
+import client from "../../db/conn.js"
 import jwt from 'jsonwebtoken'
 
 const router = Router()
