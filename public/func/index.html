@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Ver estoque</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="visualizar.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Visualizar Tarefa</title>
 </head>
 
 <body onload="carregarEstoque()">
@@ -26,14 +26,14 @@
             </div>
     
             <ul id="side_items">
-                <li class="side-item active">
+                <!--<li class="side-item active">
                     <a href="#">
                         <i class="fa-solid fa-chart-line"></i>
                         <span class="item-description">
                             Dashboard
                         </span>
                     </a>
-                </li>
+                </li>-->
     
                 <!--<li class="side-item">
                     <a href="#">
@@ -99,18 +99,118 @@
     <main >
         <div class="container"> 
             <div class="item">
-                <h2>Máquinas</h2>
+                <h2>Tarefas</h2>
                 <!-- Este espaço ficará vazio até que seja preenchido pelo JavaScript -->
+				 <div id="tarefas-lista"></div>
             </div>
     
             <div class="item">
-                <h2 class="titulo">Tarefas</h2>
+                <h2 class="titulo">Visualizar Tarefas</h2>
+                <div class="nome-maquina">
+                    <h4 id="nome-maquina">Nome da Máquina</h4>
+                    <p >Nome da máquina</p>
+                </div>
+
+                <div class="tarefa">
+                    <h4 id="tarefa">Tarefa</h4>
+                    <p id="surname">Nome da máquina</p>
+                </div>
+
+                <div class="datinha">
+                    <h4 id="inicio">Data de Início</h4>
+                    <p class="data" id="data-ex">Data de Início</p>
+                    <h4 id="vencimento">Data de vencimento</h4>
+                    <p class="data" id="data-exi">Data de Vencimento</p>
+                </div>
+
+                <div class="responsavel">
+					<h4 id="vencimento">Responsável</h4>
+                    <h4 id="responsavel">Responsável pela Tarefa</h4>
+                </div>
+
+                <div class="divisona">
+                    <div class="tipo">
+                        <h4 id="tipo">Tipo</h4>
+                        <p class="opcoes" id="tipo-ex">Tipo de Manutenção</p>
+                    </div>
+    
+                    <div class="processo">
+                        <h4 id="processo">Processo</h4>
+                        <p class="opcao" id="processo-ex">Processo de Manutenção</p>
+                    </div>
+
+                </div>
+
+                <div class="divivi">
+                    <div class="criticidade">
+                        <h4 id="criticidade">Criticidade</h4>
+                        <p class="option" id="criticidade-ex">Criticidade das Máquinas</p>
+                    </div>
+    
+                    <!--<textarea class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" ></textarea>-->
+                </div>
+                
+
+                <div class="compartimento">
+                    <h3>Observações:</h3>
+                    <textarea class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" id="descricao-ex" ></textarea>
+
+                    <button id="botao" type="submit">Enviar</button>
+                </div>
+            
+            </div>
+
             </div>
         </div>
     </main>
     
 
-    <script src="/tecnico/ver-tarefas/tarefa.js"></script>
+    <script>
+
+		const vec = []
+
+async function b() {
+
+const LINK = "/api/v1"
+
+const tarefas_lista = document.getElementById("tarefas-lista")
+
+const resp = await fetch(LINK+"/tarefa")
+const data = await resp.json()
+
+console.log(data)
+
+data.forEach((n) => {
+	const {id, titulo, descricao, estado} = n
+	vec.push(n)
+	tarefas_lista.innerHTML += `
+		<div class="maquina" onclick="ch(${vec.length-1})">
+			<h4 id="maquina">${titulo}</h4>
+			<h4 id="maquina">${descricao}</h4>
+			<h4 id="estado">${estado}</h4>
+		</div>
+	`
+})
+
+}
+
+b()
+
+function ch(n) {
+	const {titulo, maquina, createdAt, criador, tipo, estado, criticidade, descricao} = vec[n]
+
+	document.getElementById("nome-maquina").textContent = titulo
+	document.getElementById("surname").textContent = maquina.nome
+	let d = new Date(createdAt)
+	document.getElementById("data-ex").textContent = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
+	document.getElementById("data-exi").textContent = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
+	document.getElementById("responsavel").textContent = criador.nome
+	document.getElementById("tipo-ex").textContent = tipo
+	document.getElementById("processo-ex").textContent = estado
+	document.getElementById("criticidade-ex").textContent = criticidade
+	document.getElementById("descricao-ex").value = descricao
+}
+	</script>
 </body>
 
 </html>
