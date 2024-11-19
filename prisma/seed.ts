@@ -1,6 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSQL } from '@prisma/adapter-libsql'
-import { createClient } from '@libsql/client'
 import { config } from 'dotenv'
 
 (async () => {
@@ -82,34 +80,93 @@ import { config } from 'dotenv'
 
 	const maquina_retificadora3000 = await client.maquina.create({
 		data: {
-			nome: "retificadora plana 3000",
+			nome: "retificadora plana 1",
 			codigo: "1111",
 			descricao: "retificadora 3000x mais rapida que todas as outras",
 			responsavelId: usuario_tecnico.id
 		}
 	})
 
-	const mesa_retificadora = await client.submaquina.create({
+		const valvula_retificadora = await client.submaquina.create({
+			data: {
+				nome: "válvula direcional",
+				descricao: "válvula direcional da retificadora",
+				maquinaId: maquina_retificadora3000.id
+			}
+		})	
+
+		const rebolo_retificadora = await client.submaquina.create({
+			data: {
+				nome: "rebolo",
+				descricao: "rebolo da retificadora",
+				maquinaId: maquina_retificadora3000.id
+			}
+		})
+
+	const maquina_torno1 = await client.maquina.create({
 		data: {
-			nome: "mesa",
-			descricao: "mesa da retificadora",
-			maquinaId: maquina_retificadora3000.id
+			nome: "torno 1",
+			codigo: "1111",
+			descricao: "um torno para usinagem",
+			responsavelId: usuario_tecnico.id
+		}
+	})
+
+		const motor_torno = await client.submaquina.create({
+			data: {
+				nome: "motor unidirecional",
+				descricao: "motor unidirecional do movimento do torno",
+				maquinaId: maquina_torno1.id
+			}
+		})	
+
+		const contraponta_torno = await client.submaquina.create({
+			data: {
+				nome: "contra-ponto",
+				descricao: "contra-ponto do torno",
+				maquinaId: maquina_torno1.id
+			}
+		})
+
+	const maquina_torno2 = await client.maquina.create({
+		data: {
+			nome: "torno 2",
+			codigo: "1111",
+			descricao: "um torno para usinagem",
+			responsavelId: usuario_tecnico.id
+		}
+	})
+
+	const motor_torno2 = await client.submaquina.create({
+		data: {
+			nome: "motor unidirecional",
+			descricao: "motor unidirecional do movimento do torno",
+			maquinaId: maquina_torno2.id
 		}
 	})	
 
-	const valvula_retificadora = await client.submaquina.create({
+	const contraponta_torno2 = await client.submaquina.create({
 		data: {
-			nome: "válvula direcional",
-			descricao: "válvula direcional da retificadora",
-			maquinaId: maquina_retificadora3000.id
+			nome: "contra-ponto",
+			descricao: "contra-ponto do torno",
+			maquinaId: maquina_torno2.id
 		}
-	})	
+	})
 
-	const rebolo_retificadora = await client.submaquina.create({
+	const maquina_esmirilhadeira1 = await client.maquina.create({
 		data: {
-			nome: "rebolo",
-			descricao: "rebolo da retificadora",
-			maquinaId: maquina_retificadora3000.id
+			nome: "esmirilhadeira 1",
+			codigo: "1111",
+			descricao: "esmirilhadeira poderosa",
+			responsavelId: usuario_tecnico.id
+		}
+	})
+
+	const disco_esmirilhadeira = await client.submaquina.create({
+		data: {
+			nome: "disco",
+			descricao: "disco da esmirilhadeira",
+			maquinaId: maquina_esmirilhadeira1.id
 		}
 	})
 
