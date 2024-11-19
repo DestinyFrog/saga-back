@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import client from '../db/conn.js'
-import { Acesso } from "../types.d.js"
 
 export function processJWT(req:Request, res:Response, next:NextFunction) {
 	const token = req.cookies?.jwt
@@ -54,7 +53,7 @@ export function checkAdmin(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != Acesso.ADMIN) {
+	if (data.acesso != "ADMIN") {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é administrador"})
@@ -74,7 +73,7 @@ export function checkTecnico(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != Acesso.TECNICO) {
+	if (data.acesso != "TECNICO") {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é técnico"})
@@ -94,7 +93,7 @@ export function checkPeao(req:Request, res:Response, next:NextFunction) {
 		return
 	}
 
-	if (data.acesso != Acesso.PEAO) {
+	if (data.acesso != "PEAO") {
 		res
 			.status(403)
 			.json({"mensagem": "usuário não é peão"})

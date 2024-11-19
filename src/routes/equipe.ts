@@ -8,17 +8,12 @@ router.get("/",
 	processJWT,
 	checkAuthentication,
 	(req, res) => {
-		const id = req["data"].id
-
-		client.usuario.findFirst({
-			where : {
-				id
+		client.equipe.findMany({
+			where: {
+				fixa: true
 			},
 			include: {
-				Equipes: true,
-				MaquinasCriadas: true,
-				SubTarefa: true,
-				TarefasCriadas: true
+				usuarios: true
 			}
 		})
 		.then(data => {

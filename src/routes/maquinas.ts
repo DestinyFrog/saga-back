@@ -17,7 +17,11 @@ router.get("/",
 					SubTarefa: true
 				}
 			},
-			Tarefa: true
+			Tarefa: {
+				orderBy: {
+					createdAt: "asc"
+				}
+			}
 		}
 	})
 	.then(data => {
