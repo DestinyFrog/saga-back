@@ -3,14 +3,6 @@ import { config } from 'dotenv'
 
 (async () => {
 	config()
-
-	/*
-	const libsql = createClient({
-		url: `${process.env.TURSO_DATABASE_URL}`,
-		authToken: `${process.env.TURSO_AUTH_TOKEN}`,
-	})
-	*/
-	// const adapter = new PrismaLibSQL(libsql)
 	const client = new PrismaClient()
 
 	const usuario_peao = await client.usuario.create({
@@ -106,7 +98,7 @@ import { config } from 'dotenv'
 	const maquina_torno1 = await client.maquina.create({
 		data: {
 			nome: "torno 1",
-			codigo: "1111",
+			codigo: "2222",
 			descricao: "um torno para usinagem",
 			responsavelId: usuario_tecnico.id
 		}
@@ -131,7 +123,7 @@ import { config } from 'dotenv'
 	const maquina_torno2 = await client.maquina.create({
 		data: {
 			nome: "torno 2",
-			codigo: "1111",
+			codigo: "3333",
 			descricao: "um torno para usinagem",
 			responsavelId: usuario_tecnico.id
 		}
@@ -156,7 +148,7 @@ import { config } from 'dotenv'
 	const maquina_esmirilhadeira1 = await client.maquina.create({
 		data: {
 			nome: "esmirilhadeira 1",
-			codigo: "1111",
+			codigo: "4444",
 			descricao: "esmirilhadeira poderosa",
 			responsavelId: usuario_tecnico.id
 		}
@@ -225,6 +217,72 @@ import { config } from 'dotenv'
 						submaquinaId: valvula_retificadora.id,
 						titulo: "verificação válvula",
 						descricao: "verificação semanal da válvula da retificadora",
+						criadorId: usuario_tecnico.id
+					}
+				]
+			}
+		}
+	})
+
+	const tarefa_torno1 = await client.tarefa.create({
+		data: {
+			titulo: "Verificação do Torno 1",
+			descricao: "verificação semanal do torno 1",
+			tipo: "PREVENTIVA",
+			estado: "EM ANDAMENTO",
+			maquinaId: maquina_torno1.id,
+			criadorId: usuario_tecnico.id,
+			equipeId: equipe_mecanica.id,
+			SubTarefa: {
+				create: [
+					{
+						submaquinaId: motor_torno.id,
+						titulo: "verificação do motor",
+						descricao: "verificação semanal do motor do torno 1",
+						criadorId: usuario_tecnico.id
+					}
+				]
+			}
+		}
+	})
+
+	const tarefa_torno2 = await client.tarefa.create({
+		data: {
+			titulo: "Verificação do Torno 2",
+			descricao: "verificação semanal do torno 2",
+			tipo: "PREVENTIVA",
+			estado: "EM ANDAMENTO",
+			maquinaId: maquina_torno2.id,
+			criadorId: usuario_tecnico.id,
+			equipeId: equipe_mecanica.id,
+			SubTarefa: {
+				create: [
+					{
+						submaquinaId: motor_torno2.id,
+						titulo: "verificação do motor",
+						descricao: "verificação semanal do motor do torno 2",
+						criadorId: usuario_tecnico.id
+					}
+				]
+			}
+		}
+	})
+
+	const tarefa_esmirilhadeira = await client.tarefa.create({
+		data: {
+			titulo: "Verificação Esmirilhadeira",
+			descricao: "verificação semanal da esmirilhadeira",
+			tipo: "PREDITIVA",
+			estado: "CONCLUIDO",
+			maquinaId: maquina_esmirilhadeira1.id,
+			criadorId: usuario_tecnico.id,
+			equipeId: equipe_mecanica.id,
+			SubTarefa: {
+				create: [
+					{
+						submaquinaId: disco_esmirilhadeira.id,
+						titulo: "verificação do disco",
+						descricao: "verificação semanal do disco da esmirilhadeira",
 						criadorId: usuario_tecnico.id
 					}
 				]
