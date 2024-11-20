@@ -8,6 +8,8 @@
     <title>Tarefas</title>
 </head>
 <body onload="carregarTotalEstoque('totalEstoque')">
+	<script src="/global.js"></script>
+
     <nav id="sidebar">
         <div id="sidebar_content">
             <div id="user">
@@ -23,7 +25,7 @@
     
             <ul id="side_items">
                 <li class="side-item active">
-                    <a href="#">
+                    <a href="/tecnico">
                         <i class="fa-solid fa-chart-line"></i>
                         <span class="item-description">
                             Dashboard
@@ -33,19 +35,10 @@
 
     
                 <li class="side-item">
-                    <a href="#">
+                    <a href="/tecnico/adicionar-tarefas">
                         <i class="fa-solid fa-bell"></i>
                         <span class="item-description">
                             Tarefas
-                        </span>
-                    </a>
-                </li>
-    
-                <li class="side-item">
-                    <a href="#">
-                        <i class="fa-solid fa-gear"></i>
-                        <span class="item-description">
-                            Configurações
                         </span>
                     </a>
                 </li>
@@ -56,7 +49,7 @@
             </button>
         </div>
 
-        <div id="logout">
+        <div id="logout" onclick="sair()">
             <button id="logout_btn">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span class="item-description">

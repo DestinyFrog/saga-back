@@ -1,4 +1,3 @@
-const LINK = "/api/v1"
 
 const form_funcionario = document.getElementById("form-funcionario")
 const but_login = document.getElementById("input-login-funcionario")

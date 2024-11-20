@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,8 @@
 </head>
 
 <body onload="carregarEstoque()">
+	<script src="/global.js"></script>
+
     <nav id="sidebar">
         <div id="sidebar_content">
             <div id="user">
@@ -26,59 +28,6 @@
             </div>
     
             <ul id="side_items">
-                <!--<li class="side-item active">
-                    <a href="#">
-                        <i class="fa-solid fa-chart-line"></i>
-                        <span class="item-description">
-                            Dashboard
-                        </span>
-                    </a>
-                </li>-->
-    
-                <!--<li class="side-item">
-                    <a href="#">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="item-description">
-                            Usuários
-                        </span>
-                    </a>
-                </li>-->
-    
-                <li class="side-item">
-                    <a href="#">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="item-description">
-                            Tarefas
-                        </span>
-                    </a>
-                </li>
-    
-                <!--<li class="side-item">
-                    <a href="#">
-                        <i class="fa-solid fa-box"></i>
-                        <span class="item-description">
-                            Produtos
-                        </span>
-                    </a>
-                </li>
-    
-                <li class="side-item">
-                    <a href="#">
-                        <i class="fa-solid fa-image"></i>
-                        <span class="item-description">
-                            Imagens
-                        </span>
-                    </a>
-                </li>-->
-    
-                <li class="side-item">
-                    <a href="#">
-                        <i class="fa-solid fa-gear"></i>
-                        <span class="item-description">
-                            Configurações
-                        </span>
-                    </a>
-                </li>
             </ul>
     
             <button id="open_btn">
@@ -87,7 +36,7 @@
         </div>
 
         <div id="logout">
-            <button id="logout_btn">
+            <button id="logout_btn" onclick="sair()">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span class="item-description">
                     Logout
@@ -107,8 +56,8 @@
             <div class="item">
                 <h2 class="titulo">Visualizar Tarefas</h2>
                 <div class="nome-maquina">
-                    <h4 id="nome-maquina">Nome da Máquina</h4>
-                    <p >Nome da máquina</p>
+                    <h4>Nome da Máquina</h4>
+                    <p id="nome-maquina">Nome da máquina</p>
                 </div>
 
                 <div class="tarefa">
@@ -165,52 +114,7 @@
     </main>
     
 
-    <script>
-
-		const vec = []
-
-async function b() {
-
-const LINK = "/api/v1"
-
-const tarefas_lista = document.getElementById("tarefas-lista")
-
-const resp = await fetch(LINK+"/tarefa")
-const data = await resp.json()
-
-console.log(data)
-
-data.forEach((n) => {
-	const {id, titulo, descricao, estado} = n
-	vec.push(n)
-	tarefas_lista.innerHTML += `
-		<div class="maquina" onclick="ch(${vec.length-1})">
-			<h4 id="maquina">${titulo}</h4>
-			<h4 id="maquina">${descricao}</h4>
-			<h4 id="estado">${estado}</h4>
-		</div>
-	`
-})
-
-}
-
-b()
-
-function ch(n) {
-	const {titulo, maquina, createdAt, criador, tipo, estado, criticidade, descricao} = vec[n]
-
-	document.getElementById("nome-maquina").textContent = titulo
-	document.getElementById("surname").textContent = maquina.nome
-	let d = new Date(createdAt)
-	document.getElementById("data-ex").textContent = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
-	document.getElementById("data-exi").textContent = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
-	document.getElementById("responsavel").textContent = criador.nome
-	document.getElementById("tipo-ex").textContent = tipo
-	document.getElementById("processo-ex").textContent = estado
-	document.getElementById("criticidade-ex").textContent = criticidade
-	document.getElementById("descricao-ex").value = descricao
-}
-	</script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
