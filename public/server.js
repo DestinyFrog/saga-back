@@ -65,7 +65,7 @@ form_funcionario.addEventListener('submit', async (ev) => {
 				location.href = "/func"
 			}
 			else if (data.acesso == "TECNICO") {
-				location.href = "/tecnico/adicionar-tarefas"
+				location.href = "/tecnico"
 			}
 		}
 
