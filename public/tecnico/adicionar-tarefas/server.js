@@ -1,3 +1,25 @@
+
+let vec = []
+
+function openPage(id) {
+	console.log(vec[id])
+	const obj = vec[id]
+
+	document.getElementById("maquina-select").value = obj.maquinaId
+	document.getElementById("equipe-select").value = obj.equipeId
+	document.getElementById("surname").value = obj.titulo
+
+	const now = new Date(obj.createdAt)
+	const data_inicio = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`
+	document.getElementById("data-inicio") = data_inicio
+
+	const el_data_vencimento = document.getElementById("data-vencimento")
+	// document.getElementById("tipo")
+	document.getElementById("descricao").value = obj.descricao
+	// document.getElementById("criticidade").value = obj.criticidade
+
+}
+
 (async () => {
 
 	const LINK = "/api/v1"
@@ -19,14 +41,15 @@
 
 	try {
 
-		const maquina_lista = document.getElementById("maquina-lista")
+		// const maquina_lista = document.getElementById("maquina-lista")
 		
 		let resp = await fetch(LINK+"/maquina")
 		let data = await resp.json()
 
-		maquina_lista.innerHTML = ""
+		// maquina_lista.innerHTML = ""
 
 		data.forEach(({id, nome, descricao, codigo, Tarefa}) => {
+			/*
 			maquina_lista.innerHTML += `
 				<div class="maquina">
                     <h4 id="maquina">${codigo}. ${nome}</h4>
@@ -37,6 +60,7 @@
 					}</h4>
                 </div>
 			`
+			*/
 
 			el_maquina_select.innerHTML += `
 				<option value="${id}">${nome}</option>
@@ -49,6 +73,23 @@
 		data.forEach(({id, nome}) => {
 			el_equipe_select.innerHTML += `
 				<option value="${id}">${nome}</option>
+			`
+		})
+			
+
+		const tarefas_lista = document.getElementById("tarefas-lista")
+		const resp2 = await fetch(LINK+"/tarefa/criadas")
+		const data2 = await resp2.json()
+	
+		data2.forEach((n) => {
+			const {id, titulo, descricao, estado} = n
+			vec.push(n)
+			tarefas_lista.innerHTML += `
+				<div class="maquina" onclick="openPage(${vec.length-1})">
+					<h4 id="maquina">${titulo}</h4>
+					<h4 id="maquina">${descricao}</h4>
+					<h4 id="estado" style="color:${ estado=="EM ANDAMENTO"?"orange":(estado=="CONCLUÍDO"?"green":"red") };">${estado}</h4>
+				</div>
 			`
 		})
 
