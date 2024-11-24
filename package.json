@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "tsc && node dist/index.js",
+    "start": "prisma generate && prisma generate new client && tsc && node dist/index.js",
     "test": "jest",
 	"populate": "tsx prisma/seed.ts"
   },
