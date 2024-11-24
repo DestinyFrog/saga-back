@@ -273,7 +273,7 @@ import { config } from 'dotenv'
 			titulo: "Verificação Esmirilhadeira",
 			descricao: "verificação semanal da esmirilhadeira",
 			tipo: "PREDITIVA",
-			estado: "CONCLUIDO",
+			estado: "PENDENTE",
 			maquinaId: maquina_esmirilhadeira1.id,
 			criadorId: usuario_tecnico.id,
 			equipeId: equipe_mecanica.id,

@@ -26,10 +26,11 @@ model Usuario {
   cpf       String
   acesso    String   @default("PEAO")
 
-  MaquinasCriadas Maquina[]
-  TarefasCriadas  Tarefa[]
-  Equipes         Equipe[]
-  SubTarefa       SubTarefa[]
+  MaquinasCriadas   Maquina[]
+  TarefasCriadas    Tarefa[]
+  Equipes           Equipe[]
+  SubTarefa         SubTarefa[]
+  RespostaSubTarefa RespostaSubTarefa[]
 }
 
 model Maquina {
@@ -89,17 +90,32 @@ model Tarefa {
 }
 
 model SubTarefa {
-  id           Int        @id @default(autoincrement())
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  criticidade  Int        @default(0)
+  id           Int                 @id @default(autoincrement())
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  criticidade  Int                 @default(0)
   titulo       String
   descricao    String
-  concluido    Boolean    @default(false)
-  subMaquina   Submaquina @relation(fields: [submaquinaId], references: [id])
-  criador      Usuario    @relation(fields: [criadorId], references: [id])
-  tarefa       Tarefa     @relation(fields: [tarefaId], references: [id])
+  concluido    Boolean             @default(false)
+  subMaquina   Submaquina          @relation(fields: [submaquinaId], references: [id])
+  criador      Usuario             @relation(fields: [criadorId], references: [id])
+  tarefa       Tarefa              @relation(fields: [tarefaId], references: [id])
   submaquinaId Int
   criadorId    Int
   tarefaId     Int
+  respostas    RespostaSubTarefa[]
+}
+
+model RespostaSubTarefa {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  titulo      String
+  descricao   String
+  alerta      Boolean   @default(false)
+  subTarefa   SubTarefa @relation(fields: [subTarefaId], references: [id])
+  criador     Usuario   @relation(fields: [usuarioId], references: [id])
+
+  subTarefaId Int
+  usuarioId   Int
 }
