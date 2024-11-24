@@ -107,14 +107,14 @@ model SubTarefa {
 }
 
 model RespostaSubTarefa {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  titulo      String
-  descricao   String
-  alerta      Boolean   @default(false)
-  subTarefa   SubTarefa @relation(fields: [subTarefaId], references: [id])
-  criador     Usuario   @relation(fields: [usuarioId], references: [id])
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  titulo    String
+  descricao String
+  alerta    Boolean   @default(false)
+  subTarefa SubTarefa @relation(fields: [subTarefaId], references: [id])
+  criador   Usuario   @relation(fields: [usuarioId], references: [id])
 
   subTarefaId Int
   usuarioId   Int
