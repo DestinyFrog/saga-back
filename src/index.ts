@@ -10,6 +10,7 @@ import UsuarioRouter from './routes/usuario.js'
 import MaquinaRouter from './routes/maquinas.js'
 import TarefaRouter from './routes/tarefa.js'
 import EquipeRouter from './routes/equipe.js'
+import AdminRouter from './routes/admin/admin.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -30,6 +31,7 @@ app.use("/api/v1/usuario", UsuarioRouter)
 app.use("/api/v1/maquina", MaquinaRouter)
 app.use("/api/v1/tarefa", TarefaRouter)
 app.use("/api/v1/equipe", EquipeRouter)
+app.use("/api/v1/admin", AdminRouter)
 
 app.get("/api/v1", (_, res) => {
 	res.end("Hello, World!!")
