@@ -21,9 +21,6 @@
                     <span class="item-description">
                         Nome do Fulano
                     </span>
-                    <!--<span class="item-description">
-                        Lorem Ipsum
-                    </span>-->
                 </p>
             </div>
     
@@ -53,7 +50,7 @@
 				 <div id="tarefas-lista"></div>
             </div>
     
-            <div class="item">
+            <div class="item" id="tarefa-descricao">
                 <h2 class="titulo">Visualizar Tarefas</h2>
                 <div class="nome-maquina">
                     <h4>Nome da Máquina</h4>
@@ -102,10 +99,16 @@
 
                 <div class="compartimento">
                     <h3>Observações:</h3>
-                    <textarea class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" id="descricao-ex" ></textarea>
+                    <p class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" id="descricao-ex" ></p>
 
                     <button id="botao" type="submit">Enviar</button>
+					<button id="butFechar">Fechar</button>
                 </div>
+
+				<div>
+					<h3>Subtarefas</h3>
+					<ul id="subtarefas"></ul>
+				</div>
             
             </div>
 
@@ -113,6 +116,27 @@
         </div>
     </main>
     
+	<dialog id="dialog-resposta">
+			<input type="hidden" id="resposta_subtarefa">
+
+			<div>
+				<p>Alerta</p>
+				<input type="checkbox" id="resposta-alerta" />
+			</div>
+
+			<div>
+				<p>Titulo</p>
+				<input type="text" id="resposta-titulo" />
+			</div>
+
+			<div>
+				<p>Descrição</p>
+				<textarea type="text" id="resposta-descricao" ></textarea>
+			</div>
+
+			<button id="resposta-submit">Responder</button>
+			<button id="resposta-fechar">Fechar</button>
+	</dialog>
 
     <script src="./script.js"></script>
 </body>

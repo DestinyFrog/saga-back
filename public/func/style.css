@@ -9,18 +9,18 @@
 
 body {
     display: flex;
-    min-height: 100vh;
+    max-height: 100vh;
     background-color: #cccccc;
     /*background-color: #e3e9f7;*/
 }
 
 main {
-    width: 100%;
+    width: 95%;
     height: 100%;
-    padding: 20px;
+    /* margin: 10px; */
     position: fixed;
     z-index: 1;
-    padding-left: calc(82px + 20px);
+    margin-left: 82px;
 }
 
 #sidebar {
@@ -191,16 +191,17 @@ main {
     justify-content: center;
     align-items: center;
     max-width: 100%;
-    margin: 0 auto;
-    margin-top: -14px;
+	max-height: max-content;
+    margin: 20px;
 }
 
 .item {
     width: 75%;
-    height: 780px;
+    height: 92vh;
     background-color: #f0f0f0;
     color: #333;
-    margin: 7px;
+	padding: 6px;
+    margin: 6px;
     border-radius: 5px;
     border: 2px solid  #838488;
     overflow: auto;
@@ -222,7 +223,7 @@ main {
 
 .campo-item{
     margin-left: 340px;
-    margin-bottom: -1px;
+    /* margin-bottom: -1px; */
 }
  
 .titulo{
@@ -241,7 +242,7 @@ main {
 }
 
 #tarefa{
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 #surname{
@@ -333,6 +334,15 @@ main {
     border-radius: 10px;
 }
 
+#butFechar {
+    width: 120px;
+    height: 30px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    border: 1px solid #838488;
+    border-radius: 10px;
+}
+
 #botao:hover{
     background-color: #ad9660;
     border: 1px solid #ad9660;
@@ -370,7 +380,7 @@ main {
 }
 
 #nome-maquina{
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 #name{
@@ -638,4 +648,23 @@ main {
         width: 95%;
         height: 580px;
     }
+}
+
+#subtarefas {
+	list-style: none;
+}
+
+.subtarefa-con {
+	margin: 10px;
+	border: 2px solid black;
+	padding: 10px;
+}
+
+#dialog-resposta {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 500;
+	padding: 20px;
 }
