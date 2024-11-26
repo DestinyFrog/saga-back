@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Formulário de cadastro</title>
+    
+</head>
+<body>
+	<script src="/global.js"></script>
+
+    <div class="container">
+        <div class="form-image">
+            <img src="assets/img/undraw_shopping_re_hdd9 (1).svg" alt="">
+        </div>
+        <div class="form">
+            <div action="#">
+                <div class="form-header">
+                    <div class="title"> <!--titulo-->
+                        <h1>Cadastro</h1>
+                    </div>
+                    <!--<div class="login-button"> 
+                        <button><a href="#">Entrar</a></button>
+                    </div>-->
+                </div>
+                <div class="input-group"> <!--todos os inputs-->
+                    <div class="input-box">
+                        <label for="firstname">Login</label>
+                        <input id="firstname" type="text" name="firstname" placeholder="Digite seu Login" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="lastname">Nome</label>
+                        <input id="lastname" type="text" name="lastname" placeholder="Digite seu Nome" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" placeholder="Digite seu email" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="number">Celular</label>
+                        <input id="number" type="tel" name="number" placeholder="(xx) xxxx-xxxx" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="password">CPF</label>
+                        <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" required>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="password">Senha</label>
+                        <input id="password" type="password" name="Confirmpassword" placeholder="Digite sua senha" required>
+                    </div>
+                </div>
+
+                <div class="gender-inputs">
+                    <div class="gender-title">
+                        <h6>Gênero</h6>
+                    </div>
+
+                    <div class="gender-group">
+                        <div class="gender-input">
+                            <input type="radio" id="chefe" name="gender">
+                            <label for="chefe">Chefe</label>
+                        </div>   
+
+                        <div class="gender-input">
+                            <input type="radio" id="tecnico" name="gender">
+                            <label for="tecnico">Técnico</label>
+                        </div>   
+
+                        <div class="gender-input">
+                            <input type="radio" id="funci" name="gender">
+                            <label for="funci">Funcionário</label>
+                        </div>   
+                    </div>
+                </div>
+
+                <div class="continue-button">
+                    <button id="submit"><a href="#">Cadastrar Usuário</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<script src="./script.js"></script>
+</body>
+</html>

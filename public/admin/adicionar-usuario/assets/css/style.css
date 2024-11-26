@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2? family= Inter:wght@100;200;300;400;500;600 & display=swap');
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: 'inter', sans-serif;
+}
+
+body{
+    width: 100%;/*largura da tela toda*/
+    height: 100vh;/*altura da tela toda*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background: #0c0ce94d;*/
+    background: #cccccc;
+}
+
+.container{
+    width: 80%;
+    height: 80vh;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0,0,0, .212);
+}
+
+.form-image{
+    width:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background-color: #fde3a7d7;*/
+    background-color: #cfbb8d;
+    padding: 1rem;
+}
+
+.form-image img{
+    width:31rem ;
+}
+
+.form{
+    width:50%; /*larugura*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;/*para os itens ficar um embaixo do outro*/
+    background-color: #fff;
+    padding: 3rem;/*afastamento de um item para o outro*/
+}
+
+.form-header{
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;/*para ficar um ao lado do outro (o botão e o cadrasta-se)*/
+}
+
+.login-button{
+    display: flex;
+    align-items: center;
+}
+
+.login-button button{
+    border: none;
+    /*background-color: #6c63ff;*/
+    background-color: #cfbb8d;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button button:hover{
+    background-color: rgb(187, 169, 126); /*quando passar o mouse por cima dar uma realçada*/
+    transition: 0.5s;
+}
+
+.login-button button a{
+    text-decoration: none; /*tira o sublinhado debaixo da palavra*/
+    font-weight: 500;
+    color: #fff;
+}
+
+.form-header h1::after{ /*linha roxa debaixo da palavra cadrastra-se*/ 
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #cfbb8d;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.input-group{
+    display: flex;
+    flex-wrap: wrap;/*vai quebrar o texto e ficar um ao lado do outro*/
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.input-box{
+    display: flex;
+    flex-direction: column; /*para ficar um embaixo do outro*/
+    margin-bottom: 1.1rem;
+}
+
+.input-box input{
+    margin: 0.6rem 0;
+    padding: 0.8rem 1.2rem;
+    border:none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+}
+
+.input-box input:hover{/*quando passar o mouse em cima dele o backgroud dele vai mudar*/
+    background-color: #d8c28f;
+    transition: 0.5s;
+}
+
+.input-box input:focus-visible{
+    outline: 1px solid #cfbb8d; /*quando vc apertar no input ao redor da caixinha muda de cor*/
+}
+
+.input-box label,
+.gender-tileh6{
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000000c0;
+}
+
+.input-box input::placeholder{ /*muda o textinho que fica dentro da caixa do input*/
+    color:#000000be
+}
+
+.gender-group{ /*deu o espaçamento e colocou os itens um ao lado do outro*/
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.62rem;
+    padding: 0 2.0rem;
+    accent-color:#d8c28f; /* cor da bolinho do input-radio */
+}
+
+.gender-input{
+    display: flex;
+    align-items: center;
+
+}
+
+.gender-input input{
+    margin-right: .35rem;
+}
+
+.gender-input label{
+    font-size: 0.81rem;
+    font-weight: 600;
+    color:#000000c0;
+}
+
+.continue-button button{
+    width: 100%;
+    margin-top: 2.5rem;/*espaçamento*/
+    border: none;
+    background-color: #cfbb8d;
+    padding: 0.62rem; /*aumentar o tamanho dele*/
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.continue-button button:hover{
+    background-color: #b6a275;
+    transition: 0.5s;
+}
+
+.continue-button button a{
+    text-decoration:none ;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color:#fff;
+}
+
+/*daqui para cima ele não está responsivo, a partir de agora vai estar*/
+
+@media screen and (max-width:1330px) {
+    .form-image{
+        display: none;
+    }
+
+    .container{
+        width: 50%;
+    }
+    .form{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:1064px){
+    .container{
+        width: 90%;
+        height: auto;
+    }
+    .input-group{
+        flex-direction: column;
+        overflow-y: scroll;
+        flex-wrap: nowrap;/*para não quebrar*/
+        max-height: 10rem; /*definiu uma altura padrão*/
+        padding-right: 5rem;
+    }
+
+    .gender-inputs{
+        margin-top: 2rem;
+    }
+    .gender-group{
+        flex-direction: column;/*para ficar um embaixo do outro*/
+    }
+    .gender-input{
+        margin-top: 0.5rem;
+    }
+}
