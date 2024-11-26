@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>Visualizar Tarefa</title>
 </head>
 
@@ -14,7 +14,6 @@
 
     <nav id="sidebar">
         <div id="sidebar_content">
-			<!--
             <div id="user">
                 <img src="avatar.jpg" id="user_avatar" alt="Avatar">
     
@@ -22,11 +21,14 @@
                     <span class="item-description">
                         Nome do Fulano
                     </span>
+                    <!--<span class="item-description">
+                        Lorem Ipsum
+                    </span>-->
                 </p>
             </div>
-			-->
     
-            <ul id="side_items"></ul>
+            <ul id="side_items">
+            </ul>
     
             <button id="open_btn">
                 <i id="open_btn_icon" class="fa-solid fa-chevron-right"></i>
@@ -51,7 +53,7 @@
 				 <div id="tarefas-lista"></div>
             </div>
     
-            <div class="item" id="tarefa-descricao">
+            <div class="item">
                 <h2 class="titulo">Visualizar Tarefas</h2>
                 <div class="nome-maquina">
                     <h4>Nome da Máquina</h4>
@@ -100,16 +102,10 @@
 
                 <div class="compartimento">
                     <h3>Observações:</h3>
-                    <p class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" id="descricao-ex" ></p>
+                    <textarea class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" id="descricao-ex" ></textarea>
 
                     <button id="botao" type="submit">Enviar</button>
-					<button id="butFechar">Fechar</button>
                 </div>
-
-				<div>
-					<h3>Subtarefas</h3>
-					<ul id="subtarefas"></ul>
-				</div>
             
             </div>
 
@@ -117,27 +113,6 @@
         </div>
     </main>
     
-	<dialog id="dialog-resposta">
-			<input type="hidden" id="resposta_subtarefa">
-
-			<div>
-				<p>Alerta</p>
-				<input type="checkbox" id="resposta-alerta" />
-			</div>
-
-			<div>
-				<p>Titulo</p>
-				<input type="text" id="resposta-titulo" />
-			</div>
-
-			<div>
-				<p>Descrição</p>
-				<textarea type="text" id="resposta-descricao" ></textarea>
-			</div>
-
-			<button id="resposta-submit">Responder</button>
-			<button id="resposta-fechar">Fechar</button>
-	</dialog>
 
     <script src="./script.js"></script>
 </body>

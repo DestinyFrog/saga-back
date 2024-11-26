@@ -1,0 +1,642 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    max-height: 100vh;
+    background-color: #cccccc;
+    /*background-color: #e3e9f7;*/
+}
+
+main {
+    width: 95%;
+    height: 100%;
+    /* margin: 10px; */
+    position: fixed;
+    z-index: 1;
+    margin-left: 82px;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    height: 100vh;
+    border-radius: 0px 18px 18px 0px;
+    position: relative;
+    transition: all .5s;
+    min-width: 82px;
+    z-index: 2;
+    border: 2px solid #838488;
+}
+
+#sidebar_content {
+    padding: 12px;
+}
+
+#user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+#user_avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+#user_infos {
+    display: flex;
+    flex-direction: column;
+}
+
+#user_infos span:last-child {
+    color: #6b6b6b;
+    font-size: 12px;
+}
+
+#side_items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+}
+
+.side-item {
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+}
+
+.side-item:hover:not(.active),
+.side-item.active:hover {
+    background-color: #e3e9f7;
+}
+
+/*
+.side-item.active {
+    background-color: #4f46e5;
+}
+*/
+
+.side-item:hover:not(.active),
+#logout_btn:hover {
+    background-color: #e3e9f7;
+}
+
+.side-item a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0a0a0a;
+}
+
+
+
+.side-item.active a {
+    /*color: #e3e9f7;*/
+    color: #0a0a0a;
+}
+
+
+.side-item a i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+#logout {
+    border-top: 1px solid #e3e9f7;
+    padding: 12px;
+}
+
+#logout_btn {
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-radius: 8px;
+    text-align: start;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#open_btn {
+    position: absolute;
+    top: 30px;
+    right: -10px;
+    /*background-color: #4f46e5;*/
+    background-color: #ad9660;
+    color: #e3e9f7;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#open_btn_icon {
+    transition: transform .3s ease;
+}
+
+.open-sidebar #open_btn_icon {
+    transform: rotate(180deg);
+}
+
+.item-description {
+    width: 0px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    transition: width .6s;
+    height: 0px;
+}
+
+#sidebar.open-sidebar {
+    min-width: 15%;
+}
+
+#sidebar.open-sidebar .item-description {
+    width: 150px;
+    height: auto;
+}
+
+#sidebar.open-sidebar .side-item a {
+    justify-content: flex-start;
+    gap: 14px;
+}
+
+
+
+
+/* AQUI COMEÇA O CONTEÚDO DA PÁGINA */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+	max-height: max-content;
+    margin: 20px;
+}
+
+.item {
+    width: 75%;
+    height: 95vh;
+    background-color: #f0f0f0;
+    color: #333;
+	padding: 6px;
+    margin: 6px;
+    border-radius: 5px;
+    border: 2px solid  #838488;
+    overflow: auto;
+}
+
+.produto-fundo {
+    width: 580px; /* Tamanho fixo da largura */
+    height: 10%; /* Tamanho fixo da altura */
+    margin-top: 10px;
+    background-color: #DCDCDC;
+    padding: 0; /* Espaçamento interno ao redor do conteúdo */
+    border: 2px solid #A9A9A9; /* Borda ao redor do item */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Para distribuir melhor os itens internamente */
+}
+
+.campo-item{
+    margin-left: 340px;
+    /* margin-bottom: -1px; */
+}
+ 
+.titulo{
+    text-align: center;
+}
+
+
+/* CSS DO VISUALIZAR TAREFA */
+.tarefa{
+    width: 95%;
+    height: 10%;
+    margin-top: 15px;
+    margin-left: 20px;
+    border: 2px solid  #838488;
+    text-align: center;
+}
+
+#tarefa{
+    margin-top: 10px;
+}
+
+#surname{
+    text-align: center;
+}
+
+.datinha{
+    width: 95%;
+    height: 15%;
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    margin-left: 20px;
+    justify-content: space-around;
+    padding: 10px;
+    border: 2px solid  #838488;
+}
+
+.responsavel{
+    width: 95%;
+    height: 10%;
+    margin-top: 15px;
+    text-align: center;
+    margin-left: 20px;
+    border: 2px solid  #838488;
+}
+
+.tipo{
+    width: 47%;
+    height: 20%;
+    margin-top: 15px;
+    margin-left: -1px;
+    border: 2px solid  #838488;
+    accent-color:#ad9660 ; /* cor da bolinho do input-radio */
+    text-align: center;
+}
+
+.processo{
+    width: 47%;
+    height: 20%;
+    margin-top: 15px;
+    margin-left: 5px;
+    border: 2px solid  #838488;
+    accent-color:#ad9660; /* cor da bolinho do input-radio */
+    text-align: center;
+}
+
+.criticidade{
+    width: 47%;
+    height: 13%;
+    margin-top: 15px;
+    margin-left:-2px;
+    border: 2px solid  #838488;
+    accent-color:#ad9660; /* cor da bolinho do input-radio */
+    text-align: center;
+}
+
+.divisona{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.divivi{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.informacoes{
+    width: 550px;
+    height: 107px;
+    margin-top: 15px;
+    margin-left: 7px;
+    resize: none;
+    border: 2px solid  #838488;
+}
+
+#botao{
+    width: 120px;
+    height: 30px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    border: 1px solid #838488;
+    border-radius: 10px;
+}
+
+#botao:hover{
+    background-color: #ad9660;
+    border: 1px solid #ad9660;
+    transition: background-color .5s;
+}
+
+.maquina{
+    width: 95%;
+    height: 10%;
+    align-items: center;
+    margin-left: 20px;
+    border: 2px solid  #838488;
+}
+
+#maquina{
+    text-align: justify;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#estado{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -25px!important;
+    margin-right: 10px;
+    color: red;
+}
+
+.nome-maquina{
+    width: 95%;
+    height: 10%;
+    margin-left: 20px;
+    border: 2px solid  #838488;
+    text-align: center;
+}
+
+#nome-maquina{
+    margin-top: 10px;
+}
+
+#name{
+    width: 250px;
+    text-align: center;
+}
+
+#maquininha{
+    width: 200px;
+    text-align: center;
+}
+
+.compartimento{
+    width: 95%;
+    height: 170px;
+    border: 3px solid #ad9660;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+
+@media (max-width: 1170px){
+    #nome-maquina{
+        margin-top: -1px;
+    }
+
+    #tarefa{
+        margin-top: -1px;
+    }
+
+
+    *{
+        overflow: auto;
+    }
+
+    .item{
+        height: 730px;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #open_btn{
+        margin-right: 7px;
+    }
+    .criticidade{
+        width: 47%;
+        height: 13%;
+        margin-top: 15px;
+        margin-left:3px;
+    }
+
+    .informacoes{
+        width: 370px;
+        height: 107px;
+        margin-top: 15px;
+        margin-left: 6px;
+    }
+}
+
+
+@media (max-width: 730px) {
+    .item{
+        width: 90%;
+        height: 770px;
+    }
+
+    .criticidade{
+        width: 47%;
+        height: 13%;
+        margin-top: 15px;
+        margin-left:-1px;
+    }
+
+    .informacoes{
+        width: 250px;
+        height: 107px;
+        margin-top: 15px;
+        margin-left: 6px;
+    }
+
+    .responsavel{
+        margin-left: 13px;
+    }
+
+    .datinha{
+        margin-left: 13px;
+    }
+
+    .tarefa{
+        margin-left: 13px;
+    }
+
+    .nome-maquina{
+        margin-left: 13px;
+    }
+
+    .maquina{
+        margin-left: 13px;
+    }
+}
+ 
+
+
+@media (max-width: 560px) {
+    .item{
+        height: 290px;
+    }
+
+    .datinha{
+        display: block;
+        height: 23%;
+    }
+
+    .nome-maquina{
+        margin-left: 10px;
+    }
+
+    .divisona{
+        display: flex;
+    }
+
+    .tipo{
+        margin-bottom: 180px;
+        height: 80px;
+    }
+
+    .processo{
+        margin-bottom: 180px;
+    }
+
+    .tarefa{
+        margin-left: 10px;
+    }
+
+    .datinha{
+        height: 140px;
+        margin-left: 10px;
+    }
+
+    .responsavel{
+        margin-left: 10px;
+    }
+
+    .maquina{
+        margin-left: 10px;
+    }
+
+    .criticidade{
+        width: 47%;
+        height: 13%;
+        margin-bottom: 150px;
+        margin-left:-1px;
+    }
+
+    .informacoes{
+        width: 180px;
+        height: 107px;
+        margin-top: 45px;
+        margin-left: -19px;
+    }
+
+
+    .divivi{
+        margin-top: -180px;
+    }
+
+    .compartimento{
+        display: flex;
+        margin-left: 10px;
+        margin-top: -130px;
+    }
+}
+
+@media (max-width: 430px) {
+    .item{
+        width: 95%;
+        height: 800px;
+    }
+
+    .datinha{
+        display: block;
+        height: 23%;
+    }
+
+    .nome-maquina{
+        margin-left: 7px;
+    }
+
+    .tarefa{
+        margin-left: 7px;
+    }
+
+    .datinha{
+        height: 130px;
+        margin-left: 7px;
+    }
+
+    .responsavel{
+        margin-left: 7px;
+    }
+
+    .maquina{
+        margin-left: 7px;
+    }
+
+    .criticidade{
+        width: 47%;
+        height: 13%;
+        margin-top: 15px;
+        margin-left:-1px;
+    }
+
+    .informacoes{
+        width: 200px;
+        height: 107px;
+        margin-top: 20px;
+        margin-left: 36px;
+    }
+
+    .titi{
+      display: none;
+    }
+
+    #botao{
+        margin-top: 130px;
+    }
+}
+/* CSS DO VISUALIZAR TAREFA */
+
+
+
+/*
+@media (max-width: 1170px){
+
+    *{
+        overflow: auto;
+    }
+   
+    .container{
+        display: flex;
+        flex-direction: column  ;
+    }
+    #open_btn{
+        margin-right: 7px;
+    }
+}*/
+
+@media (max-width: 730px) {
+    .item{
+        width: 90%;
+    }
+}
+ 
+@media (max-width: 560px) {
+    .item{
+        width: 95%;
+        height: 580px;
+    }
+}
+
+@media (max-width: 430px) {
+    .item{
+        width: 95%;
+        height: 580px;
+    }
+}

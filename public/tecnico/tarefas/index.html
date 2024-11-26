@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
-    <title>Tarefas</title>
+    <title>Visualizar Tarefa</title>
 </head>
-<body onload="carregarTotalEstoque('totalEstoque')">
+
+<body onload="carregarEstoque()">
 	<script src="/global.js"></script>
 
-    <nav id="sidebar">
+	<nav id="sidebar">
         <div id="sidebar_content">
-			<!--
             <div id="user">
                 <img src="avatar.jpg" id="user_avatar" alt="Avatar">
     
@@ -20,10 +21,11 @@
                     <span class="item-description">
                         Nome do Fulano
                     </span>
-                
+                    <!--<span class="item-description">
+                        Lorem Ipsum
+                    </span>-->
                 </p>
             </div>
-			-->
     
             <ul id="side_items">
                 <li class="side-item active">
@@ -34,7 +36,6 @@
                         </span>
                     </a>
                 </li>
-
     
                 <li class="side-item">
                     <a href="/tecnico/adicionar-tarefas">
@@ -61,86 +62,77 @@
         </div>
     </nav>
 
-    <main>
-        <div class="container">
-			<!--
+    <main >
+        <div class="container"> 
             <div class="item">
-                <h2 id="titulo">Máquinas</h2>
-				<div id="maquina-lista"></div>
+                <h2>Tarefas</h2>
+                <!-- Este espaço ficará vazio até que seja preenchido pelo JavaScript -->
+				 <div id="tarefas-lista"></div>
             </div>
-			-->
-
-			<div class="item">
-                <h2 id="titulo">Tarefas</h2>
-				<div id="tarefas-lista"></div>
-            </div>
-            
-            <div id="item2" class="item">
-                <h2 id="titulo">Postar Tarefa</h2>
+    
+            <div class="item" id="tarefa-descricao">
+                <h2 class="titulo">Visualizar Tarefas</h2>
                 <div class="nome-maquina">
-                    <h4 id="nome-maquina">Máquina</h4>
-					<select id="maquina-select"></select>
+                    <h4>Nome da Máquina</h4>
+                    <p id="nome-maquina">Nome da máquina</p>
                 </div>
 
                 <div class="tarefa">
                     <h4 id="tarefa">Tarefa</h4>
-                    <input id="surname" type="text" placeholder="Digite a tarefa aqui">
+                    <p id="surname">Nome da máquina</p>
                 </div>
 
                 <div class="datinha">
                     <h4 id="inicio">Data de Início</h4>
-                    <input class="data" type="date" id="data-inicio">
+                    <p class="data" id="data-ex">Data de Início</p>
                     <h4 id="vencimento">Data de vencimento</h4>
-                    <input class="data" type="date" id="data-vencimento">
+                    <p class="data" id="data-exi">Data de Vencimento</p>
                 </div>
 
                 <div class="responsavel">
+					<h4 id="vencimento">Responsável</h4>
                     <h4 id="responsavel">Responsável pela Tarefa</h4>
-					<select id="equipe-select"></select>
                 </div>
 
                 <div class="divisona">
-                    <fieldset name="tipo" class="tipo" id="tipo">
+                    <div class="tipo">
                         <h4 id="tipo">Tipo</h4>
-                        <input class="opcoes" type="radio" name="tipo" value="Preditiva"/> Preditiva <br />
-                        <input class="opcoes" type="radio" name="tipo" value="Preventiva"/> Preventiva <br />
-                        <input class="opcoes" type="radio" name="tipo" value="Corretiva"/> Corretiva <br />
-                    </fieldset>
+                        <p class="opcoes" id="tipo-ex">Tipo de Manutenção</p>
+                    </div>
     
-                    <fieldset name="processo" class="processo">
+                    <div class="processo">
                         <h4 id="processo">Processo</h4>
-                        <input class="opcao" type="radio" name="processo" value="Pendente"/> Pendente <br />
-                        <input class="opcao" type="radio" name="processo" value="Andamento"/> Andamento <br />
-                        <input class="opcao" type="radio" name="processo" value="Concluído"/> Concluído <br />
-                    </fieldset>
+                        <p class="opcao" id="processo-ex">Processo de Manutenção</p>
+                    </div>
 
                 </div>
 
                 <div class="divivi">
-                    <fieldset name="criticidade" class="criticidade" id="criticidade">
+                    <div class="criticidade">
                         <h4 id="criticidade">Criticidade</h4>
-                        <input class="option" type="radio" name="criticidade" value="Crítico"/> Crítico <br />
-                        <input class="option" type="radio" name="criticidade" value="Moderado"/> Moderado <br />
-                        <input class="option" type="radio" name="criticidade" value="Baixo"/> Baixo <br />
-                    </fieldset>
+                        <p class="option" id="criticidade-ex">Criticidade das Máquinas</p>
+                    </div>
     
-                    <textarea class="informacoes" rows="6" placeholder="Informações Adicionais" id="descricao" minlength="20" ></textarea>
+                    <!--<textarea class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" ></textarea>-->
                 </div>
                 
 
-                <div class="botoes">
-                    <button id="botao1" type="submit">Excluir</button>
-                    <button id="botao2" type="submit">Editar</button>
-                    <!-- <button class="botao3"type="submit"  id="btn-salva" onclick="validarProduto('name','surname','processo') ; enviarMensagem" >Salvar</button> -->
-                    <button class="botao3"type="submit"  id="btn-salva">Salvar</button>
+                <div class="compartimento">
+                    <h3>Observações:</h3>
+                    <textarea class="informacoes" rows="6" placeholder="Informações Adicionais" minlength="20" id="descricao-ex" ></textarea>
 
-				</div>
+                    <button id="botao" type="submit">Enviar</button>
+					<button id="butFechar">Fechar</button>
+                </div>
             
+            </div>
+
             </div>
         </div>
     </main>
+    
 
-
-    <script src="server.js"></script>
+    <script src="./script.js"></script>
 </body>
+
 </html>
